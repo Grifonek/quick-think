@@ -1,11 +1,9 @@
 import isEmail from "validator/lib/isEmail";
 
-export const validateEmail = (email: string): boolean | string => {
+export const validateEmail = (email: string): string | undefined => {
   const isValid = isEmail(email);
 
   if (!isValid) return "Please enter a valid email!";
-
-  return isValid;
 };
 
 export const validatePassword = (password: string): string | undefined => {

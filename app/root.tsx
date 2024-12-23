@@ -1,13 +1,16 @@
 import {
+  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
+import GoBack from "./components/GoBack";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -21,6 +24,52 @@ export const links: LinksFunction = () => [
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
 ];
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  const fallbackStyles = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    textAlign: "center",
+    backgroundColor: "#fef2f2",
+    color: "#b91c1c",
+    fontFamily: "Arial, sans-serif",
+    padding: "1rem",
+  };
+
+  const headingStyles = {
+    fontSize: "2.5rem",
+    fontWeight: "bold",
+    marginBottom: "1rem",
+  };
+
+  return (
+    <html lang="en">
+      <head>
+        <title>Oops!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <div style={fallbackStyles}>
+          <h1 style={headingStyles}>
+            {isRouteErrorResponse(error)
+              ? `${error.status} ${error.statusText}`
+              : error instanceof Error
+              ? error.message
+              : "Unknown Error"}
+          </h1>
+          <GoBack />
+        </div>
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,17 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
+import { useActionData } from "@remix-run/react";
+import React, { useRef, useState } from "react";
 import Form from "~/components/Form";
 import { Layout } from "~/components/Layout";
-import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
-import { validateEmail, validatePassword } from "~/utils/validators.server";
 import { getUser, login } from "~/utils/auth.server";
-import { useActionData } from "@remix-run/react";
+import { validateEmail, validatePassword } from "~/utils/validators.server";
 
-export const loader: LoaderFunction = async ({ req }) => {
-  return (await getUser(req)) ? redirect("/") : null;
+export const loader: LoaderFunction = async ({ request }) => {
+  return (await getUser(request)) ? redirect("/") : null;
 };
 
-export const action: ActionFunction = async ({ req }) => {
-  const form = await req.formData();
+export const action: ActionFunction = async ({ request }) => {
+  const form = await request.formData();
   const email = form.get("email");
   const password = form.get("password");
 
@@ -51,27 +51,27 @@ function Login() {
     setFormData((form) => ({ ...form, [field]: e.target.value }));
   }
 
-  useEffect(() => {
-    if (!firstLoad.current) {
-      const newState = {
-        email: "",
-        password: "",
-      };
-      setErrors(newState);
-      setFormError("");
-      setFormData(newState);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!firstLoad.current) {
+  //     const newState = {
+  //       email: "",
+  //       password: "",
+  //     };
+  //     setErrors(newState);
+  //     setFormError("");
+  //     setFormData(newState);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    if (!firstLoad.current) {
-      setFormError("");
-    }
-  }, [formData]);
+  // useEffect(() => {
+  //   if (!firstLoad.current) {
+  //     setFormError("");
+  //   }
+  // }, [formData]);
 
-  useEffect(() => {
-    firstLoad.current = false;
-  }, []);
+  // useEffect(() => {
+  //   firstLoad.current = false;
+  // }, []);
 
   return (
     <Layout>

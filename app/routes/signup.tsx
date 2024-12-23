@@ -1,6 +1,6 @@
 import { ActionFunction } from "@remix-run/node";
 import { useActionData } from "@remix-run/react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Form from "~/components/Form";
 import { Layout } from "~/components/Layout";
 import { register } from "~/utils/auth.server";
@@ -11,12 +11,15 @@ import {
   validatePasswordsEquality,
 } from "~/utils/validators.server";
 
-export const action: ActionFunction = async ({ req }) => {
-  const form = await req.formData();
-  const email = form.get("email");
-  const username = form.get("username");
-  const password = form.get("password");
-  const passwordConfirm = form.get("passwordConfirm");
+export const action: ActionFunction = async ({ request }) => {
+  console.log(request);
+  const form = await request.formData();
+  console.log(form);
+
+  const email = form.get("email")?.toString();
+  const username = form.get("username")?.toString().toLowerCase();
+  const password = form.get("password")?.toString();
+  const passwordConfirm = form.get("passwordConfirm")?.toString();
 
   const errors = {
     email: validateEmail(email),
@@ -40,7 +43,7 @@ export const action: ActionFunction = async ({ req }) => {
 function SignUp() {
   const actionData = useActionData();
 
-  const firstLoad = useRef(true);
+  // const firstLoad = useRef(true);
   const [errors, setErrors] = useState(actionData?.errors || {});
   const [formError, setFormError] = useState(actionData?.error || "");
 
@@ -51,14 +54,6 @@ function SignUp() {
     username: actionData?.fields?.username || "",
   });
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    passwordConfirm: "",
-    username: "",
-    // profileImg: "default.jpg",
-  });
-
   function handleInputChange(
     e: React.ChangeEvent<HTMLInputElement>,
     field: string
@@ -66,29 +61,29 @@ function SignUp() {
     setFormData((form) => ({ ...form, [field]: e.target.value }));
   }
 
-  useEffect(() => {
-    if (!firstLoad.current) {
-      const newState = {
-        email: "",
-        password: "",
-        passwordConfirm: "",
-        username: "",
-      };
-      setErrors(newState);
-      setFormError("");
-      setFormData(newState);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!firstLoad.current) {
+  //     const newState = {
+  //       email: "",
+  //       password: "",
+  //       passwordConfirm: "",
+  //       username: "",
+  //     };
+  //     setErrors(newState);
+  //     setFormError("");
+  //     setFormData(newState);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    if (!firstLoad.current) {
-      setFormError("");
-    }
-  }, [formData]);
+  // useEffect(() => {
+  //   if (!firstLoad.current) {
+  //     setFormError("");
+  //   }
+  // }, [formData]);
 
-  useEffect(() => {
-    firstLoad.current = false;
-  }, []);
+  // useEffect(() => {
+  //   firstLoad.current = false;
+  // }, []);
 
   return (
     <Layout>
@@ -99,7 +94,7 @@ function SignUp() {
             <span className="text-indigo-500">Thinkies!</span>
           </h1>
 
-          <form method="POST" className="space-y-4">
+          <form method="post" className="space-y-4">
             <div className="text-xs font-semibold text-center tracking-wide text-red-500 w-full">
               {formError}
             </div>

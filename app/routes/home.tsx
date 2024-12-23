@@ -1,18 +1,30 @@
 import { LoaderFunction } from "@remix-run/node";
-import { requireUserId } from "~/utils/auth.server";
+import { getUser, requireUserId } from "~/utils/auth.server";
+import UserPanel from "../components/UserPanel";
+import { Layout } from "~/components/Layout";
+import { useLoaderData } from "@remix-run/react";
+import SearchBar from "~/components/SearchBar";
 
-export const loader: LoaderFunction = async ({ req }) => {
-  await requireUserId(req);
+export const loader: LoaderFunction = async ({ request }) => {
+  // ensuring that user is authenticated
+  await requireUserId(request);
 
-  return null;
+  // getting user info
+  const user = await getUser(request);
+
+  return Response.json({ user });
 };
 
 function Home() {
+  const { user } = useLoaderData<typeof loader>();
+
   return (
-    <div>
-      <h1>Home page</h1>
-      {/* some panel with links and user info */}
-    </div>
+    <Layout>
+      <UserPanel user={user} />
+      <div className="mt-36 flex justify-center">
+        <SearchBar />
+      </div>
+    </Layout>
   );
 }
 

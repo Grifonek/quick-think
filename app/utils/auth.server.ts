@@ -16,12 +16,20 @@ interface LoginFormTypes {
 }
 
 export async function register(user: RegisterFormTypes) {
-  const exists = await prisma.user.count({ where: { email: user.email } });
-  if (exists)
-    return Response.json(
-      { error: "User already exists with that email!" },
-      { status: 400 }
-    );
+  console.log("Starting registration process...");
+
+  // console.log(user.email);
+  // const exists = await prisma.user.findUnique({ where: { email: user.email } });
+  // if (exists)
+  //   return Response.json(
+  //     { error: "User already exists with that email!" },
+  //     { status: 400 }
+  //   );
+
+  const exists = await prisma.user.findUnique({ where: { email: user.email } });
+  if (exists) {
+    throw new Response("User already exists!", { status: 400 }); // MODIFIED
+  }
 
   const newUser = await createUser(user);
   if (!newUser)
@@ -46,7 +54,7 @@ export async function login({ email, password }: LoginFormTypes) {
   if (!user || !(await bcrypt.compare(password, user.password)))
     return Response.json({ error: "Incorrect login!" }, { status: 400 });
 
-  return createUserSession(user.id, "/");
+  return createUserSession(user.id, "/home");
 }
 
 const sessionSecret = process.env.SESSION_SECRET;
@@ -112,7 +120,13 @@ export async function getUser(req: Request) {
   try {
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: { id: true, email: true },
+      select: {
+        id: true,
+        email: true,
+        points: true,
+        coins: true,
+        username: true,
+      },
     });
 
     return user;
