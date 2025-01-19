@@ -22,6 +22,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
+  // checking if user is authenticated
   const user = await getUser(request);
 
   return Response.json({ user });
@@ -32,7 +33,7 @@ export default function Index() {
 
   return (
     <div className="flex flex-col min-h-screen items-center bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-white">
-      <img src={logo} alt="logo" className="w-32 mt-10" />
+      <img src={logo} alt="logo" className="w-32 mt-10 animate-bounce" />
 
       <header className="text-center mb-12 mt-8">
         <h1 className="text-5xl font-extrabold text-indigo-400">

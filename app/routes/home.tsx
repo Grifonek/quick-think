@@ -1,22 +1,33 @@
 import { LoaderFunction } from "@remix-run/node";
-import { getUser, requireUserId } from "~/utils/auth.server";
-import UserPanel from "../components/UserPanel";
-import { Layout } from "~/components/Layout";
 import { useLoaderData } from "@remix-run/react";
+import { useState } from "react";
+import { Layout } from "~/components/Layout";
+import QuestionReminder from "~/components/QuestionReminder";
 import SearchBar from "~/components/SearchBar";
+import { getUser, requireUserId } from "~/utils/auth.server";
+import { hasAnsweredTodaysQuestion } from "~/utils/question.server";
+import UserPanel from "../components/UserPanel";
 
 export const loader: LoaderFunction = async ({ request }) => {
   // ensuring that user is authenticated
-  await requireUserId(request);
+  const userId = await requireUserId(request);
 
   // getting user info
   const user = await getUser(request);
 
-  return Response.json({ user });
+  // checks if user has answered today's question
+  const hasUserAnsweredTodaysQuestion = await hasAnsweredTodaysQuestion(userId);
+
+  return Response.json({ user, hasUserAnsweredTodaysQuestion });
 };
 
 function Home() {
-  const { user } = useLoaderData<typeof loader>();
+  const { user, hasUserAnsweredTodaysQuestion } =
+    useLoaderData<typeof loader>();
+
+  const [isOpened, setIsOpened] = useState<boolean>(
+    !hasUserAnsweredTodaysQuestion
+  );
 
   return (
     <Layout>
@@ -24,6 +35,7 @@ function Home() {
       <div className="mt-36 flex justify-center">
         <SearchBar />
       </div>
+      {isOpened && <QuestionReminder setIsOpened={setIsOpened} />}
     </Layout>
   );
 }

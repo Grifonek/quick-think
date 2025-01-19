@@ -13,6 +13,7 @@ interface QuestionProps {
   answer: string;
   handleAnswerChange: (value: string) => void;
   handleSubmit: () => void;
+  isSubmitting: boolean;
 }
 
 function Question({
@@ -20,6 +21,7 @@ function Question({
   answer,
   handleAnswerChange,
   handleSubmit,
+  isSubmitting,
 }: QuestionProps) {
   return (
     <div className="bg-gray-700 p-8 rounded-xl shadow-md text-center max-w-2xl mx-auto">
@@ -40,9 +42,12 @@ function Question({
         />
         <button
           type="submit"
-          className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-3 px-8 rounded-full text-lg font-semibold shadow-md hover:shadow-lg hover:opacity-90 transition"
+          disabled={isSubmitting}
+          className={`bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-3 px-8 rounded-full text-lg font-semibold shadow-md hover:shadow-lg hover:opacity-90 focus:outline-none focus:ring-8 focus:ring-indigo-500 transition ${
+            isSubmitting && "cursor-not-allowed"
+          }`}
         >
-          Submit
+          {isSubmitting && answer !== "" ? "Submitting..." : "Submit"}
         </button>
       </form>
     </div>

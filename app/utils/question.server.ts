@@ -106,6 +106,13 @@ export const hasAnswered = async (userId: string, questionId: string) => {
   });
 };
 
+// checks if user already answered today's question
+export const hasAnsweredTodaysQuestion = async (userId: string) => {
+  const todaysQuestion = await getTodaysQuestion();
+
+  return await hasAnswered(userId, todaysQuestion!.id);
+};
+
 // gets today's question
 export const getTodaysQuestion = async () => {
   const startOfDay = new Date();
