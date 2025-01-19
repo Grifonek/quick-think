@@ -13,7 +13,6 @@ export const action: ActionFunction = async ({ request }) => {
 
   const formData = await request.formData();
   const userAnswer = formData.get("answer") as string;
-  console.log(userAnswer);
 
   if (!userAnswer)
     return Response.json({ error: "Answer is required!" }, { status: 400 });
@@ -23,12 +22,14 @@ export const action: ActionFunction = async ({ request }) => {
   if (!question)
     return Response.json({ error: "No question available!" }, { status: 404 });
 
-  const isFirstOneSolver = await isFirst(question!.id);
+  if (userAnswer === question.correctAnswer) {
+    const isFirstOneSolver = await isFirst(question!.id);
 
-  if (isFirstOneSolver) {
-    await updateQuestionFirstAndRewardUser(question!.id, userId);
-  } else {
-    await rewardUser(userId);
+    if (isFirstOneSolver) {
+      await updateQuestionFirstAndRewardUser(question!.id, userId);
+    } else {
+      await rewardUser(userId);
+    }
   }
 
   const result = await answer(userId, question!.id, userAnswer);

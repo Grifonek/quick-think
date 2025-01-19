@@ -1,8 +1,7 @@
 import { ActionFunction } from "@remix-run/node";
-import { useActionData } from "@remix-run/react";
+import { Link, useActionData } from "@remix-run/react";
 import React, { useState } from "react";
 import Form from "~/components/Form";
-import { Layout } from "~/components/Layout";
 import { register } from "~/utils/auth.server";
 import {
   validateEmail,
@@ -83,73 +82,84 @@ function SignUp() {
 
   // useEffect(() => {
   //   firstLoad.current = false;
-  // }, []);
 
-  return (
-    <Layout>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-        <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
-          <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
-            Sign up to start earning{" "}
-            <span className="text-indigo-500">Thinkies!</span>
-          </h1>
-
-          <form method="post" className="space-y-4">
-            <div className="text-xs font-semibold text-center tracking-wide text-red-500 w-full">
-              {formError}
-            </div>
-            <Form
-              htmlFor="email"
-              label="Email"
-              value={formData.email}
-              onChange={(e) => handleInputChange(e, "email")}
-              error={errors?.email}
-            />
-
-            <Form
-              htmlFor="username"
-              label="Username"
-              value={formData.username}
-              onChange={(e) => handleInputChange(e, "username")}
-              error={errors?.username}
-            />
-
-            {/* <Form
+  /* <Form
               htmlFor="profileImg"
               label="Profile Image"
               value={formData.profileImg}
               onChange={(e) => handleInputChange(e, "profileImg")}
-            /> */}
+            /> */
+  // }, []);
 
-            <Form
-              htmlFor="password"
-              label="Password"
-              type="password"
-              value={formData.password}
-              onChange={(e) => handleInputChange(e, "password")}
-              error={errors?.password}
-            />
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700">
+      <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-8">
+        <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-8">
+          Sign up to start earning{" "}
+          <span className="text-indigo-500">Thinkies!</span>
+        </h1>
 
-            <Form
-              htmlFor="passwordConfirm"
-              label="Password Confirm"
-              type="password"
-              value={formData.passwordConfirm}
-              onChange={(e) => handleInputChange(e, "passwordConfirm")}
-              error={errors?.passwordConfirm}
-            />
+        <form method="post" className="space-y-6">
+          {formError && (
+            <div className="text-sm font-semibold text-center text-red-500">
+              {formError}
+            </div>
+          )}
 
-            <button
-              type="submit"
-              value="signIn"
-              className="w-full px-4 py-2 bg-indigo-500 text-white font-semibold rounded-lg shadow hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            >
-              Sign Up
-            </button>
-          </form>
-        </div>
+          <Form
+            htmlFor="email"
+            label="Email"
+            value={formData.email}
+            onChange={(e) => handleInputChange(e, "email")}
+            error={errors?.email}
+          />
+
+          <Form
+            htmlFor="username"
+            label="Username"
+            value={formData.username}
+            onChange={(e) => handleInputChange(e, "username")}
+            error={errors?.username}
+          />
+
+          <Form
+            htmlFor="password"
+            label="Password"
+            type="password"
+            value={formData.password}
+            onChange={(e) => handleInputChange(e, "password")}
+            error={errors?.password}
+          />
+
+          <Form
+            htmlFor="passwordConfirm"
+            label="Password Confirm"
+            type="password"
+            value={formData.passwordConfirm}
+            onChange={(e) => handleInputChange(e, "passwordConfirm")}
+            error={errors?.passwordConfirm}
+          />
+
+          <button
+            type="submit"
+            value="signIn"
+            className="w-full px-5 py-3 bg-indigo-500 text-white text-lg font-bold rounded-lg shadow-lg hover:bg-indigo-600 transition focus:outline-none focus:ring-4 focus:ring-indigo-400"
+          >
+            Sign Up
+          </button>
+        </form>
+
+        <p className="text-center mt-6 text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="text-indigo-500 font-medium hover:underline"
+          >
+            Log in here
+          </Link>
+        </p>
       </div>
-    </Layout>
+    </div>
   );
 }
 

@@ -26,8 +26,14 @@ export async function register(user: RegisterFormTypes) {
   //     { status: 400 }
   //   );
 
-  const exists = await prisma.user.findUnique({ where: { email: user.email } });
-  if (exists) {
+  const existsEmail = await prisma.user.findUnique({
+    where: { email: user.email },
+  });
+  const existsUsername = await prisma.user.findUnique({
+    where: { username: user.username },
+  });
+
+  if (existsEmail || existsUsername) {
     throw new Response("User already exists!", { status: 400 }); // MODIFIED
   }
 
@@ -143,4 +149,25 @@ export async function logout(req: Request) {
       "Set-Cookie": await storage.destroySession(session),
     },
   });
+}
+
+export async function changePassword(
+  userId: string,
+  currentPassword: string,
+  newPassword: string
+) {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+
+  if (!user || !(await bcrypt.compare(currentPassword, user.password)))
+    return { error: "Incorrect current password!" }; // only with this is shows in the form as error, try/catch block refreshes whole site
+  // throw new Response("Incorrect current password!", { status: 400 });
+
+  const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: { password: hashedPassword },
+  });
+
+  return { success: true };
 }

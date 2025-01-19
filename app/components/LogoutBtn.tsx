@@ -13,7 +13,7 @@ function LogoutBtn() {
       </button>
 
       {isOpen && (
-        <div className="absolute w-max left-0 mt-2 p-4 bg-white shadow-lg rounded-xl">
+        <div className="absolute w-max -right-7 mt-2 p-4 bg-white shadow-lg rounded-xl">
           <form action="/logout" method="post">
             <button type="submit" className="font-bold hover:text-red-500">
               Logout

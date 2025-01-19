@@ -7,11 +7,18 @@ export const existingAnswers = async (questionId: string) => {
   });
 };
 
-// checks if is there some answer on some question
+// checks if user is first one solver with CORRECT answer on todays question
 export const isFirst = async (questionId: string) => {
   const answers = await existingAnswers(questionId);
 
-  return answers.length === 0;
+  const todaysQuestion = await getTodaysQuestion();
+
+  for (let i = 0; i < answers.length; i++) {
+    if (answers[i].answer === todaysQuestion?.correctAnswer) return false;
+  }
+
+  return true;
+  // return answers.length === 0;
 };
 
 // created answer for question and user
@@ -20,20 +27,20 @@ export const answer = async (
   questionId: string,
   userAnswer: string
 ) => {
-  const question = await prisma.question.findUnique({
-    where: { id: questionId },
-    select: { answers: true },
-  });
+  // const question = await prisma.question.findUnique({
+  //   where: { id: questionId },
+  //   select: { answers: true },
+  // });
 
-  const updatedAnswers = question?.answers || [];
-  updatedAnswers.push({ userId, answer: userAnswer });
+  // const updatedAnswers = question?.answers || [];
+  // updatedAnswers.push({ userId, answer: userAnswer });
 
-  await prisma.question.update({
-    where: { id: questionId },
-    data: {
-      answers: updatedAnswers,
-    },
-  });
+  // await prisma.question.update({
+  //   where: { id: questionId },
+  //   data: {
+  //     answers: updatedAnswers,
+  //   },
+  // });
 
   return prisma.answer.create({
     data: {
@@ -112,6 +119,9 @@ export const getTodaysQuestion = async () => {
         gte: startOfDay,
         lte: endOfDay,
       },
+    },
+    include: {
+      answers: true,
     },
   });
 };

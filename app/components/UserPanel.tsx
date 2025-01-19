@@ -12,57 +12,77 @@ function UserPanel({ user }) {
   });
 
   return (
-    <nav className="bg-white shadow-md px-4 py-2 rounded-lg">
-      <div className="max-w-screen-xl mx-auto items-center justify-between flex">
-        <Link to="/home" className="text-indigo-500 text-xl font-semibold">
+    <nav className="bg-gradient-to-r from-gray-200 via-gray-100 to-white shadow-md px-6 py-4 rounded-lg">
+      <div className="max-w-screen-xl mx-auto flex items-center justify-between">
+        {/* Logo */}
+        <Link
+          to="/home"
+          className="text-indigo-400 text-2xl font-extrabold tracking-wide"
+        >
           Quick Think
         </Link>
 
-        <div className="py-2 px-4 text-gray-900 hover:text-blue-500">
-          <Link to="/dailyQuestion">Today&apos;s question</Link>
+        {/* Today's Question */}
+        <div className="py-2 px-4">
+          <Link
+            to="/dailyQuestion"
+            className="text-gray-900 hover:text-indigo-400 text-lg font-medium transition"
+          >
+            Today&apos;s Question
+          </Link>
         </div>
 
+        {/* Leaderboards Dropdown */}
         <div className="relative">
           <button
             onClick={() => setIsExpandOpen(!isExpandOpen)}
-            className="py-2 px-4 text-gray-900 hover:text-blue-500 flex items-center"
+            className="py-2 px-4 text-gray-900 hover:text-indigo-400 text-lg font-medium flex items-center transition"
           >
             <span>Leaderboards</span>
             <ChevronDownIcon
-              className={`size-5 transition-transform ${
+              className={`size-5 text-indigo-400 ml-2 transition-transform ${
                 isExpandOpen ? "rotate-180" : ""
               }`}
             />
           </button>
 
+          {/* Dropdown Menu */}
           <div
             className={`${
               isExpandOpen ? "block" : "hidden"
-            } absolute left-0 w-full mt-2 bg-white shadow-lg rounded-xl`}
+            } absolute left-0 w-48 mt-2 bg-gray-100 text-gray-900 shadow-lg rounded-xl z-10`}
             ref={expandRef}
           >
-            <div className="flex flex-col items-center cursor-pointer px-5 py-2">
+            <div className="flex flex-col text-center py-2">
               <Link
                 to="/leaderboards/all-time"
-                className="py-2 hover:underline"
+                className="py-2 hover:bg-gray-200 hover:text-indigo-400 rounded transition"
               >
-                <span>All time</span>
+                All Time
               </Link>
-              <Link to="/leaderboards/weekly" className="py-2 hover:underline">
-                <span>Weekly</span>
+              <Link
+                to="/leaderboards/monthly"
+                className="py-2 hover:bg-gray-200 hover:text-indigo-400 rounded transition"
+              >
+                Monthly
               </Link>
-              <Link to="/leaderboards/monthly" className="py-2 hover:underline">
-                <span>Monthly</span>
+              <Link
+                to="/leaderboards/weekly"
+                className="py-2 hover:bg-gray-200 hover:text-indigo-400 rounded transition"
+              >
+                Weekly
               </Link>
             </div>
           </div>
         </div>
 
-        <div>
-          <UserInfo user={user} />
+        {/* User Info and Logout */}
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <UserInfo user={user} />
+          </div>
+          <LogoutBtn />
         </div>
-
-        <LogoutBtn />
       </div>
     </nav>
   );

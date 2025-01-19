@@ -48,6 +48,23 @@ export const queryForUsername = async (username: string) => {
       username: username,
     },
     select: {
+      id: true,
+      username: true,
+      createdAt: true,
+      email: true,
+      points: true,
+      coins: true,
+    },
+  });
+};
+
+export const queryForUsernameWithUserId = async (userId: string) => {
+  return await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      id: true,
       username: true,
       createdAt: true,
       email: true,
@@ -69,4 +86,114 @@ export const queryForUsers = async (username: string) => {
       username: true,
     },
   });
+};
+
+export const getAllTimeBestUsers = async () => {
+  return await prisma.user.findMany({
+    orderBy: [
+      {
+        coins: "desc",
+      },
+      {
+        points: "desc",
+      },
+    ],
+    select: {
+      id: true,
+      username: true,
+      coins: true,
+      points: true,
+    },
+    take: 50,
+  });
+};
+
+export const getMonthlyBestUsers = async () => {
+  const users = await prisma.user.findMany({
+    orderBy: [
+      {
+        coins: "desc",
+      },
+      {
+        points: "desc",
+      },
+    ],
+    select: {
+      id: true,
+      username: true,
+      coins: true,
+      points: true,
+      answers: true,
+    },
+    take: 50,
+  });
+
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+  const currentYear = currentDate.getFullYear();
+
+  const filteredUsers = users.map((user) => {
+    const thisMonthAnswers = user.answers.filter((answer) => {
+      const answerDate = new Date(answer.createdAt);
+
+      return (
+        answerDate.getMonth() === currentMonth &&
+        answerDate.getFullYear() === currentYear
+      );
+    });
+
+    return {
+      id: user.id,
+      username: user.username,
+      coins: user.coins,
+      points: user.points,
+      answerCount: thisMonthAnswers.length,
+    };
+  });
+
+  return filteredUsers;
+};
+
+export const getWeeklyBestUsers = async () => {
+  const users = await prisma.user.findMany({
+    orderBy: [
+      {
+        coins: "desc",
+      },
+      {
+        points: "desc",
+      },
+    ],
+    select: {
+      id: true,
+      username: true,
+      coins: true,
+      points: true,
+      answers: true,
+    },
+    take: 50,
+  });
+
+  const currentDate = new Date();
+  const startOfWeek = new Date(
+    currentDate.setDate(currentDate.getDate() - currentDate.getDay())
+  );
+  startOfWeek.setHours(0, 0, 0, 0);
+
+  const filteredUsers = users.map((user) => {
+    const thisWeekAnswers = user.answers.filter((answer) => {
+      const answerDate = new Date(answer.createdAt);
+      return answerDate >= startOfWeek && answerDate <= new Date();
+    });
+
+    return {
+      id: user.id,
+      username: user.username,
+      coins: user.coins,
+      points: user.points,
+      answersCount: thisWeekAnswers.length,
+    };
+  });
+
+  return filteredUsers;
 };
