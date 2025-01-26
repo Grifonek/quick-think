@@ -9,9 +9,11 @@ function SearchedUserInfo({ data }) {
     <>
       <div className="flex flex-col items-center justify-center space-y-10 mt-12 md:space-x-10 md:flex-row-reverse">
         <div className="flex-shrink-0">
-          <div className="h-40 w-40 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-4xl">
-            {data.user.username[0]}
-          </div>
+          <img
+            src={`/${data.user.profileImg}`}
+            alt={data.user.username[0]}
+            className="h-52 w-52 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-4xl"
+          />
         </div>
         <div className="space-y-6 text-center md:text-left">
           <h1 className="font-extrabold text-4xl text-white">

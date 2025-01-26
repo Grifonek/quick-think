@@ -32,6 +32,16 @@ function UserPanel({ user }) {
           </Link>
         </div>
 
+        {/* ThinkPass */}
+        <div className="py-2 px-4">
+          <Link
+            to="/thinkPass"
+            className="text-gray-900 hover:text-indigo-400 text-lg font-medium transition"
+          >
+            ThinkPass
+          </Link>
+        </div>
+
         {/* Leaderboards Dropdown */}
         <div className="relative">
           <button

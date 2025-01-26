@@ -1,5 +1,6 @@
 import { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { useActionData, useLoaderData } from "@remix-run/react";
+import About from "~/components/About";
 import AccountSettings from "~/components/AccountSettings";
 import BackHome from "~/components/BackHome";
 import ChangePassword from "~/components/ChangePassword";
@@ -7,7 +8,7 @@ import CurrentUserInfo from "~/components/CurrentUserInfo";
 import { Layout } from "~/components/Layout";
 import { changePassword, requireUserId } from "~/utils/auth.server";
 import { userAnswers, userFirstAnswers } from "~/utils/question.server";
-import { queryForUsernameWithUserId } from "~/utils/user.server";
+import { getUserImage, queryForUsernameWithUserId } from "~/utils/user.server";
 import {
   validatePassword,
   validatePasswordsEquality,
@@ -32,11 +33,15 @@ export const loader: LoaderFunction = async ({ request }) => {
   // getting count of being first one solver
   const countFirstOneSolver = firstOneSolver.length;
 
+  // getting user profile img
+  const { profileImg } = await getUserImage(userId);
+
   return Response.json({
     user,
     allAnsweredQuestions,
     countOfAllAnsweredQuestions,
     countFirstOneSolver,
+    profileImg,
   });
 };
 
@@ -93,6 +98,7 @@ function MyProfile() {
   return (
     <Layout>
       <BackHome />
+      <About />
 
       <CurrentUserInfo data={data} />
 

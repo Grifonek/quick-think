@@ -38,6 +38,8 @@ function QuestionBody({ data, fetcher }) {
         Today&apos;s question
       </h1>
 
+      <p>{data.streak}</p>
+
       {data.noQuestion ? (
         <p className="text-gray-400 text-lg">
           No question for today... Come back tomorrow!

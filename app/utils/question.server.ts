@@ -1,4 +1,5 @@
 import { prisma } from "./prisma.server";
+import { addRewardLevel, updateUserStreak } from "./user.server";
 
 // finds all answers of some question
 export const existingAnswers = async (questionId: string) => {
@@ -54,12 +55,21 @@ export const answer = async (
 
 // if is answer correct, update user points
 export const rewardUser = async (userId: string) => {
-  return prisma.user.update({
+  // update user streak
+  await updateUserStreak(userId);
+
+  // update points
+  const updatedUser = prisma.user.update({
     where: { id: userId },
     data: {
       points: { increment: 10 },
     },
   });
+
+  // add reward level if points get higher
+  await addRewardLevel(userId);
+
+  return updatedUser;
 };
 
 // if is the first one solver, then updates question and rewards user
@@ -72,13 +82,21 @@ export const updateQuestionFirstAndRewardUser = async (
     data: { firstAnswerId: userId },
   });
 
-  return prisma.user.update({
+  // update user streak
+  await updateUserStreak(userId);
+
+  const updatedUser = prisma.user.update({
     where: { id: userId },
     data: {
       points: { increment: 15 },
       coins: { increment: 1 },
     },
   });
+
+  // add reward level if points get higher
+  await addRewardLevel(userId);
+
+  return updatedUser;
 };
 
 // finds all answers for user
@@ -109,6 +127,8 @@ export const hasAnswered = async (userId: string, questionId: string) => {
 // checks if user already answered today's question
 export const hasAnsweredTodaysQuestion = async (userId: string) => {
   const todaysQuestion = await getTodaysQuestion();
+
+  if (!todaysQuestion) return;
 
   return await hasAnswered(userId, todaysQuestion!.id);
 };

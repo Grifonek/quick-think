@@ -54,6 +54,7 @@ export const queryForUsername = async (username: string) => {
       email: true,
       points: true,
       coins: true,
+      profileImg: true,
     },
   });
 };
@@ -70,6 +71,8 @@ export const queryForUsernameWithUserId = async (userId: string) => {
       email: true,
       points: true,
       coins: true,
+      profileImg: true,
+      unlockedRewards: true,
     },
   });
 };
@@ -196,4 +199,114 @@ export const getWeeklyBestUsers = async () => {
   });
 
   return filteredUsers;
+};
+
+export const updateUserStreak = async (userId: string) => {
+  const user = await getUserStreak(userId);
+
+  if (!user) throw new Error("User not found!");
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  if (user.lastAnsweredDate) {
+    const lastAnswered = new Date(user.lastAnsweredDate);
+
+    // already answered today
+    if (lastAnswered.getTime() === today.getTime()) {
+      return user.streak;
+    }
+
+    if (lastAnswered.getTime() === yesterday.getTime()) {
+      // increment streak if answered yesterday
+      const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: {
+          streak: { increment: 1 },
+          lastAnsweredDate: today,
+        },
+      });
+
+      return updatedUser.streak;
+    }
+  }
+
+  // if missed a day or first answer
+  const resetUser = await prisma.user.update({
+    where: { id: userId },
+    data: {
+      streak: 1,
+      lastAnsweredDate: today,
+    },
+  });
+
+  return resetUser.streak;
+};
+
+export const getUserStreak = async (userId: string) => {
+  return prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      streak: true,
+      lastAnsweredDate: true,
+    },
+  });
+};
+
+export const getUserImage = async (userId: string) => {
+  return prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      profileImg: true,
+    },
+  });
+};
+
+export const setUserImage = async (userId: string, profilePic: string) => {
+  try {
+    if (!profilePic) {
+      throw new Error("Profile picture cannot be null or undefined.");
+    }
+
+    // updating the user's profile picture in the DB
+    return await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        profileImg: profilePic,
+      },
+    });
+  } catch (error) {
+    console.error("Error in setUserImage:", error);
+    throw new Error("Failed to update profile picture.");
+  }
+};
+
+export const addRewardLevel = async (userId: string) => {
+  const user = await queryForUsernameWithUserId(userId);
+
+  if (!user) throw new Error("User not found!");
+
+  const rewardsPerLevel = 100;
+  const rewardLevel = Math.floor(user.points / rewardsPerLevel);
+
+  if (rewardLevel > user.unlockedRewards) {
+    return prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        unlockedRewards: { increment: 1 },
+      },
+    });
+  }
+
+  return;
 };

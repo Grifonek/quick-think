@@ -18,13 +18,16 @@ model User {
   password            String
   points              Int      @default(0)
   coins               Int      @default(0)
+  streak              Int      @default(0)
+  lastAnsweredDate    DateTime
   answers             Answer[]
+  profileImg          String  @default("")
+  unlockedRewards     Int     @default(0)
 }
 // passwordConfirm     String
 // passwordChangedAt   DateTime
 // passwordResetToken  String
 // passwordResetExpires DateTime
-// profileImg          String   @default("default.jpg")
 
 model Question {
   id String @id @default(auto()) @map("_id") @db.ObjectId
