@@ -34,14 +34,6 @@ export const getOtherUsers = async (userId: string) => {
   });
 };
 
-// export const getUserById = async (userId: string) => {
-//   return await prisma.user.findUnique({
-//     where: {
-//       id: userId,
-//     },
-//   });
-// };
-
 export const queryForUsername = async (username: string) => {
   return await prisma.user.findUnique({
     where: {
@@ -55,6 +47,7 @@ export const queryForUsername = async (username: string) => {
       points: true,
       coins: true,
       profileImg: true,
+      unlockedRewards: true,
     },
   });
 };
@@ -135,24 +128,28 @@ export const getMonthlyBestUsers = async () => {
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
 
-  const filteredUsers = users.map((user) => {
-    const thisMonthAnswers = user.answers.filter((answer) => {
-      const answerDate = new Date(answer.createdAt);
+  const filteredUsers = users
+    .map((user) => {
+      const thisMonthAnswers = user.answers.filter((answer) => {
+        const answerDate = new Date(answer.createdAt);
 
-      return (
-        answerDate.getMonth() === currentMonth &&
-        answerDate.getFullYear() === currentYear
-      );
-    });
+        return (
+          answerDate.getMonth() === currentMonth &&
+          answerDate.getFullYear() === currentYear
+        );
+      });
 
-    return {
-      id: user.id,
-      username: user.username,
-      coins: user.coins,
-      points: user.points,
-      answerCount: thisMonthAnswers.length,
-    };
-  });
+      if (thisMonthAnswers.length === 0) return undefined;
+
+      return {
+        id: user.id,
+        username: user.username,
+        coins: user.coins,
+        points: user.points,
+        answerCount: thisMonthAnswers.length,
+      };
+    })
+    .filter((user) => user !== undefined);
 
   return filteredUsers;
 };
@@ -183,20 +180,24 @@ export const getWeeklyBestUsers = async () => {
   );
   startOfWeek.setHours(0, 0, 0, 0);
 
-  const filteredUsers = users.map((user) => {
-    const thisWeekAnswers = user.answers.filter((answer) => {
-      const answerDate = new Date(answer.createdAt);
-      return answerDate >= startOfWeek && answerDate <= new Date();
-    });
+  const filteredUsers = users
+    .map((user) => {
+      const thisWeekAnswers = user.answers.filter((answer) => {
+        const answerDate = new Date(answer.createdAt);
+        return answerDate >= startOfWeek && answerDate <= new Date();
+      });
 
-    return {
-      id: user.id,
-      username: user.username,
-      coins: user.coins,
-      points: user.points,
-      answersCount: thisWeekAnswers.length,
-    };
-  });
+      if (thisWeekAnswers.length === 0) return undefined;
+
+      return {
+        id: user.id,
+        username: user.username,
+        coins: user.coins,
+        points: user.points,
+        answersCount: thisWeekAnswers.length,
+      };
+    })
+    .filter((user) => user !== undefined);
 
   return filteredUsers;
 };

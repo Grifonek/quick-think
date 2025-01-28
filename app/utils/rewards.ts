@@ -35,9 +35,13 @@ const rewards = [
       "app/images/profilePics/sixth.jpeg",
     ],
   },
-  { points: 700, reward: "Special Profile Title" },
-  { points: 750, reward: "Secret Reward: Golden Crown Badge 👑" },
-  { points: 800, reward: "Highlight Comments" },
+  { points: 700, reward: "Chat Golden Crown Badge 👑" },
+  { points: 750, reward: "Secret Reward: Special Profile Title" },
+  {
+    points: 800,
+    reward: "Highlight Comments",
+    item: "bg-pink-500 animate-pulse",
+  },
   {
     points: 900,
     reward: "Exclusive Avatars",

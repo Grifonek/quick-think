@@ -5,13 +5,25 @@ function SelectProfilePic({
   isOpen,
   onClose,
   onSelect,
+  unlocked,
 }: {
   selectedPicture: string;
   isOpen: boolean;
   onClose: () => void;
   onSelect: (selectedPicture: string) => void;
+  unlocked: number;
 }) {
   if (!isOpen) return null;
+
+  // Unlock logic based on levels
+  const isUnlocked = (index: number) => {
+    if (index < 2 && unlocked >= 1) return true;
+    if (index < 4 && unlocked >= 4) return true;
+    if (index < 6 && unlocked >= 6) return true;
+    if (index < 8 && unlocked >= 9) return true;
+    if (index < 9 && unlocked >= 10) return true;
+    return false;
+  };
 
   return (
     <div
@@ -27,19 +39,21 @@ function SelectProfilePic({
           {pictures.map((picture, index) => (
             <button
               key={index}
-              disabled={picture === selectedPicture}
+              disabled={picture === selectedPicture || !isUnlocked(index)}
               onClick={() => {
                 onSelect(picture);
                 onClose();
               }}
-              className="focus:outline-none cursor-pointer border-2 border-transparent rounded-lg hover:border-indigo-500 transition duration-200"
+              className={`focus:outline-none border-2 border-transparent rounded-lg transition duration-200 ${
+                isUnlocked(index)
+                  ? "hover:border-indigo-500"
+                  : "cursor-not-allowed opacity-50"
+              }`}
             >
               <img
                 src={picture}
                 alt={`Profile ${index + 1}`}
-                className={`rounded-lg ${
-                  picture === selectedPicture && "cursor-not-allowed opacity-50"
-                }`}
+                className="rounded-lg"
               />
             </button>
           ))}

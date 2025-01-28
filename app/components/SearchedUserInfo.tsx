@@ -8,15 +8,27 @@ function SearchedUserInfo({ data }) {
   return (
     <>
       <div className="flex flex-col items-center justify-center space-y-10 mt-12 md:space-x-10 md:flex-row-reverse">
-        <div className="flex-shrink-0">
+        <div className="relative flex-shrink-0">
+          {/* Neon Ring */}
+          {data.user.unlockedRewards >= 3 && (
+            <div className="absolute inset-0 rounded-full before:content-[''] before:absolute before:inset-0 before:rounded-full before:border-[6px] before:border-transparent before:bg-gradient-to-r before:from-blue-500 before:to-purple-500 before:animate-neon-glow before:blur-md" />
+          )}
           <img
             src={`/${data.user.profileImg}`}
             alt={data.user.username[0]}
-            className="h-52 w-52 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-4xl"
+            className={`h-52 w-52 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-4xl relative ${
+              data.user.unlockedRewards >= 3 ? "z-10" : ""
+            }`}
           />
         </div>
         <div className="space-y-6 text-center md:text-left">
-          <h1 className="font-extrabold text-4xl text-white">
+          <h1
+            className={`font-extrabold text-4xl ${
+              data.user.unlockedRewards >= 2
+                ? "bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.indigo.400),theme(colors.indigo.100),theme(colors.sky.400),theme(colors.fuchsia.400),theme(colors.sky.400),theme(colors.indigo.100),theme(colors.indigo.400))] bg-[length:200%_auto] animate-gradient"
+                : "text-white"
+            }`}
+          >
             {data.user.username}
           </h1>
           <h3 className="font-medium text-lg text-indigo-300">
@@ -54,7 +66,6 @@ function SearchedUserInfo({ data }) {
             </h2>
             <p className="text-4xl font-extrabold text-indigo-500">
               {data.user.coins}
-              {/* {data.countFirstOneSolver} this is not working properly for some reason */}
             </p>
           </div>
         </div>

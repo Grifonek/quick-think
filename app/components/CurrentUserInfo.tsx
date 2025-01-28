@@ -55,7 +55,13 @@ function CurrentUserInfo({ data }: { data: any }) {
       </div>
 
       <div className="space-y-6 text-center md:text-left">
-        <h1 className="font-extrabold text-4xl text-white">
+        <h1
+          className={`font-extrabold text-4xl ${
+            data.user.unlockedRewards >= 2
+              ? "bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.indigo.400),theme(colors.indigo.100),theme(colors.sky.400),theme(colors.fuchsia.400),theme(colors.sky.400),theme(colors.indigo.100),theme(colors.indigo.400))] bg-[length:200%_auto] animate-gradient"
+              : "text-white"
+          }`}
+        >
           {data.user.username}
         </h1>
         <h3 className="font-medium text-lg text-indigo-300">
@@ -80,6 +86,7 @@ function CurrentUserInfo({ data }: { data: any }) {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSelect={handleSelect}
+        unlocked={data.user.unlockedRewards}
       />
     </div>
   );

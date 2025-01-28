@@ -3,6 +3,7 @@ import Question from "./Question";
 import QuestionAllAnswers from "./QuestionAllAnswers";
 import QuestionAnswerModalWindow from "./QuestionAnswerModalWindow";
 import QuestionTimeRemaining from "./QuestionTimeRemaining";
+import QuestionChat from "./QuestionChat";
 
 function QuestionBody({ data, fetcher }) {
   const [answer, setAnswer] = useState<string>("");
@@ -45,7 +46,7 @@ function QuestionBody({ data, fetcher }) {
           No question for today... Come back tomorrow!
         </p>
       ) : data.hasAlreadyAnswered ? (
-        <QuestionTimeRemaining />
+        <QuestionTimeRemaining fetcher={fetcher} />
       ) : (
         <div className="mt-6">
           <Question
@@ -59,7 +60,16 @@ function QuestionBody({ data, fetcher }) {
       )}
 
       {data.question?.answers?.length > 0 && data.hasAlreadyAnswered && (
-        <QuestionAllAnswers data={data} />
+        <>
+          <QuestionAllAnswers data={data} />
+          <div className="flex justify-center">
+            <QuestionChat
+              fetcher={fetcher}
+              messages={data.questionMessages}
+              currentUser={data.userId}
+            />
+          </div>
+        </>
       )}
 
       {fetcher.data?.success && isModalOpen && (

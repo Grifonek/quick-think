@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function QuestionTimeRemaining() {
+function QuestionTimeRemaining({ fetcher }) {
   const [timeRemaining, setTimeRemaining] = useState<string>("");
 
   useEffect(() => {

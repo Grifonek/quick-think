@@ -6,7 +6,11 @@ import QuestionBody from "~/components/QuestionBody";
 import UserStreak from "~/components/UserStreak";
 import { isTodayOrYesterday } from "~/hooks/isTodayOrYesterday";
 import { requireUserId } from "~/utils/auth.server";
-import { getTodaysQuestion, hasAnswered } from "~/utils/question.server";
+import {
+  getAllMessagesForTodaysQuestion,
+  getTodaysQuestion,
+  hasAnswered,
+} from "~/utils/question.server";
 import { getUserStreak } from "~/utils/user.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -31,11 +35,16 @@ export const loader: LoaderFunction = async ({ request }) => {
   // has user already answered this question
   const hasAlreadyAnswered = await hasAnswered(userId, question!.id);
 
+  // getting all messages for question
+  const questionMessages = await getAllMessagesForTodaysQuestion();
+
   return Response.json({
     question,
     noQuestion,
     hasAlreadyAnswered,
     userStreak,
+    questionMessages,
+    userId,
   });
 };
 

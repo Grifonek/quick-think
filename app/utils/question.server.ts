@@ -1,5 +1,9 @@
 import { prisma } from "./prisma.server";
-import { addRewardLevel, updateUserStreak } from "./user.server";
+import {
+  addRewardLevel,
+  queryForUsernameWithUserId,
+  updateUserStreak,
+} from "./user.server";
 
 // finds all answers of some question
 export const existingAnswers = async (questionId: string) => {
@@ -149,6 +153,7 @@ export const getTodaysQuestion = async () => {
     },
     include: {
       answers: true,
+      messages: true,
     },
   });
 };
@@ -163,4 +168,47 @@ export const updateQuest = async () => {
       createdAt: new Date(),
     },
   });
+};
+
+// creating a new message
+export const createNewMessage = async (
+  userId: string,
+  questionId: string,
+  text: string
+) => {
+  return prisma.message.create({
+    data: {
+      userId,
+      questionId,
+      message: text,
+    },
+  });
+};
+
+// getting all messages for todays question
+export const getAllMessagesForTodaysQuestion = async () => {
+  const todaysQuestion = await getTodaysQuestion();
+
+  if (!todaysQuestion) return [];
+
+  const messagesWithUser = await Promise.all(
+    todaysQuestion.messages.map(async (message) => {
+      const user = await queryForUsernameWithUserId(message.userId);
+      return {
+        ...message,
+        user,
+      };
+    })
+  );
+
+  const onlyMessageAndUser = messagesWithUser.map((item) => {
+    return {
+      message: item.message,
+      username: item.user!.username,
+      userId: item.user!.id,
+      unlockedRewards: item.user!.unlockedRewards,
+    };
+  });
+
+  return onlyMessageAndUser;
 };
