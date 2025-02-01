@@ -29,7 +29,7 @@ model User {
 model Question {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
-  title String @unique
+  title String
   text String
   startDate DateTime @unique
   correctAnswer String
