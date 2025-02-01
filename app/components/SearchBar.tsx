@@ -52,7 +52,7 @@ function SearchBar() {
   }
 
   return (
-    <div className="relative w-60">
+    <div className="relative w-60 flex justify-center">
       <div className="flex">
         <input
           type="text"
@@ -78,7 +78,7 @@ function SearchBar() {
       </div>
       {error && <p className="text-red-600 mt-1">{error}</p>}
 
-      <ul className="absolute z-10 w-full">
+      <ul className="absolute z-10 w-full mt-10 right-12 max-h-60 overflow-y-scroll">
         {suggestions.map((user) => (
           <li
             key={user.username}

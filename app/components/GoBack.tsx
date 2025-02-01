@@ -1,6 +1,6 @@
 import { useNavigate } from "@remix-run/react";
 
-function GoBack({ purpose = "error" }: { purpose: string }) {
+function GoBack({ purpose = "error" }: { purpose?: string }) {
   const navigate = useNavigate();
   const goBack = () => navigate(-1);
 

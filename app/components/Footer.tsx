@@ -2,7 +2,7 @@ function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <div className="flex mt-auto gap-x-2 text-indigo-500 [word-spacing:3px]">
+    <div className="flex justify-center mt-auto gap-x-2 text-indigo-500 [word-spacing:3px]">
       &copy; Copyright {year},
       <a
         href="https://grifonekio.site/"

@@ -16,16 +16,6 @@ interface LoginFormTypes {
 }
 
 export async function register(user: RegisterFormTypes) {
-  console.log("Starting registration process...");
-
-  // console.log(user.email);
-  // const exists = await prisma.user.findUnique({ where: { email: user.email } });
-  // if (exists)
-  //   return Response.json(
-  //     { error: "User already exists with that email!" },
-  //     { status: 400 }
-  //   );
-
   const existsEmail = await prisma.user.findUnique({
     where: { email: user.email },
   });
@@ -34,7 +24,15 @@ export async function register(user: RegisterFormTypes) {
   });
 
   if (existsEmail || existsUsername) {
-    throw new Response("User already exists!", { status: 400 }); // MODIFIED
+    return Response.json(
+      {
+        error: "User with this email or username already exists!",
+        fields: { email: user.email, username: user.username },
+      },
+      {
+        status: 400,
+      }
+    );
   }
 
   const newUser = await createUser(user);

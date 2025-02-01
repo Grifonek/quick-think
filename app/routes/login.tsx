@@ -12,13 +12,13 @@ export const action: ActionFunction = async ({ request }) => {
   // getting form data
   const form = await request.formData();
 
-  const email = form.get("email");
-  const password = form.get("password");
+  const email = form.get("email")?.toString();
+  const password = form.get("password")?.toString();
 
   // validating form data
   const errors = {
-    email: validateEmail(email),
-    password: validatePassword(password),
+    email: validateEmail(email!),
+    password: validatePassword(password!),
   };
 
   // if error in errors, error

@@ -14,6 +14,30 @@ import {
   validatePasswordsEquality,
 } from "~/utils/validators.server";
 
+export type LoaderData = {
+  user: {
+    id: string;
+    email: string;
+    createdAt: Date;
+    username: string;
+    points: number;
+    coins: number;
+    profileImg: string;
+    unlockedRewards: number;
+  } | null;
+  allAnsweredQuestions: {
+    userId: string;
+    id: string;
+    createdAt: Date;
+    answer: string;
+    questionId: string;
+    isFirst: boolean;
+  }[];
+  countOfAllAnsweredQuestions: number;
+  countFirstOneSolver: number;
+  profileImg: string | undefined;
+};
+
 export const loader: LoaderFunction = async ({ request }) => {
   // ensuring that user is authenticated
   const userId = await requireUserId(request);
@@ -34,14 +58,14 @@ export const loader: LoaderFunction = async ({ request }) => {
   const countFirstOneSolver = firstOneSolver.length;
 
   // getting user profile img
-  const { profileImg } = await getUserImage(userId);
+  const profileImg = await getUserImage(userId);
 
   return Response.json({
     user,
     allAnsweredQuestions,
     countOfAllAnsweredQuestions,
     countFirstOneSolver,
-    profileImg,
+    profileImg: profileImg?.profileImg,
   });
 };
 
@@ -92,7 +116,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 function MyProfile() {
-  const data = useLoaderData<typeof loader>();
+  const data: LoaderData = useLoaderData<typeof loader>();
   const actionData = useActionData();
 
   return (
@@ -103,7 +127,7 @@ function MyProfile() {
       <CurrentUserInfo data={data} />
 
       <AccountSettings>
-        <ChangePassword actionData={actionData} />
+        <ChangePassword actionData={actionData!} />
       </AccountSettings>
     </Layout>
   );

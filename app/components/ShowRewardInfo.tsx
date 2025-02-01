@@ -2,12 +2,11 @@ function ShowRewardInfo({
   setIsModalOpen,
   reward,
 }: {
-  setIsModalOpen: () => void;
-  reward: {
-    reward: string;
-    points: number;
-    item: any;
-  };
+  setIsModalOpen: (isOpen: boolean) => void;
+  reward:
+    | { points: number; reward: string; item: string[] }
+    | { points: number; reward: string; item: string }
+    | { points: number; reward: string; item?: undefined };
 }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">

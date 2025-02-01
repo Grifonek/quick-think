@@ -7,7 +7,7 @@ function About() {
     <Layout>
       <GoBack purpose="normal" />
 
-      <div className="w-full max-w-4xl bg-gray-800 p-8 rounded-lg shadow-lg mx-auto mt-20">
+      <div className="w-full max-w-4xl bg-gray-800 p-8 rounded-lg shadow-lg mx-auto mt-5">
         {/* Header Section */}
         <h1 className="text-4xl font-extrabold text-center text-indigo-500 mb-6">
           About Quick Think

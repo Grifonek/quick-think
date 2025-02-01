@@ -41,7 +41,7 @@ function Home() {
       <UserPanel user={user} />
       <div className="mt-14 flex flex-col items-center space-y-10">
         {todayOrYesterday && (
-          <div className="w-full max-w-3xl bg-indigo-600 text-center text-white p-6 rounded-lg shadow-lg">
+          <div className="w-full max-w-3xl bg-indigo-600 text-center text-white p-2 lg:p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold">
               🔥{userStreak.streak} Day{userStreak.streak > 1 ? "s" : ""}{" "}
               Streak!

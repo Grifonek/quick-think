@@ -7,7 +7,7 @@ function QuestionReminder({
   setIsOpened: (value: boolean) => void;
 }) {
   return (
-    <div className="fixed left-1/2 bottom-10 transform -translate-x-1/2 w-11/12 md:w-2/3 bg-indigo-600 text-white p-6 rounded-lg shadow-lg flex justify-between items-center">
+    <div className="fixed left-1/2 bottom-10 transform -translate-x-1/2 w-11/12 md:w-2/3 bg-indigo-600 text-white p-6 rounded-lg shadow-lg flex max-lg:flex-col max-lg:space-y-3 justify-between items-center">
       <div className="flex items-center">
         <div className="relative flex items-center justify-center">
           <div className="absolute h-12 w-12 rounded-full bg-yellow-300 animate-ping"></div>

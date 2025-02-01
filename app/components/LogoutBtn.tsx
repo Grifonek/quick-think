@@ -4,10 +4,12 @@ import { useOutsideClick } from "~/hooks/useOutsideClick";
 
 function LogoutBtn() {
   const [isOpen, setIsOpen] = useState(false);
-  const expandRef = useOutsideClick(() => setIsOpen(false));
+  const expandRef = useOutsideClick(() =>
+    setIsOpen(false)
+  ) as React.RefObject<HTMLDivElement>;
 
   return (
-    <div className="relative" ref={expandRef}>
+    <div className="relative mt-1" ref={expandRef}>
       <button onClick={() => setIsOpen(!isOpen)}>
         <PowerIcon className="size-6 text-red-500" />
       </button>

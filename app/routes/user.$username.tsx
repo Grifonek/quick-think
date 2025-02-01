@@ -47,7 +47,6 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 function UserById() {
   const data = useLoaderData<typeof loader>();
-  console.log(data);
 
   return (
     <Layout>

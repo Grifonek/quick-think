@@ -107,7 +107,7 @@ export const updateQuestionFirstAndRewardUser = async (
 export const userAnswers = async (userId: string) => {
   return prisma.answer.findMany({
     where: { userId },
-    include: { question: true },
+    // include: { question: true },
   });
 };
 

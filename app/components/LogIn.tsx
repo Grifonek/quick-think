@@ -3,9 +3,21 @@ import Form from "./Form";
 import { useState } from "react";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
 
-function LogIn({ actionData }) {
-  const [errors, setErrors] = useState(actionData?.errors || {});
-  const [formError, setFormError] = useState(actionData?.error || "");
+interface ActionData {
+  errors?: {
+    email?: string;
+    password?: string;
+  };
+  error?: string;
+  fields?: {
+    email?: string;
+    password?: string;
+  };
+}
+
+function LogIn({ actionData }: { actionData: ActionData }) {
+  const [errors] = useState(actionData?.errors || {});
+  const [formError] = useState(actionData?.error || "");
 
   const [formData, setFormData] = useState({
     email: actionData?.fields?.email || "",

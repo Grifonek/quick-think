@@ -14,7 +14,7 @@ function Withdraw() {
   return (
     <Layout>
       <BackHome />
-      <div className="text-center mt-10">
+      <div className="text-center mt-24">
         <h1 className="text-4xl font-extrabold text-white mb-6">
           💸 Withdraw Money 💸
         </h1>

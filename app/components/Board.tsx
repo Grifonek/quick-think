@@ -2,8 +2,22 @@ import { Link } from "@remix-run/react";
 
 interface BoardProps {
   boardName: string;
-  users: any;
-  me: any;
+  users: {
+    id: string;
+    points: number;
+    username: string;
+    coins: number;
+  }[];
+  me: {
+    id: string;
+    username: string;
+    coins: number;
+    points: number;
+    email: string;
+    createdAt: Date;
+    profileImg: string;
+    unlockedRewards: number;
+  };
 }
 
 function Board({ boardName, users, me }: BoardProps) {

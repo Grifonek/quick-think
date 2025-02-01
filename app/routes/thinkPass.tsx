@@ -26,8 +26,6 @@ function ThinkPass() {
 
   const progressPercentage = (userPoints / maxPoints) * 100;
 
-  // user points / 100 = reward level (1-10), default is 0
-
   // getting the next reward
   const nextReward = rewards.find((reward) => reward.points > userPoints);
 

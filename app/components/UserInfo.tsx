@@ -26,7 +26,7 @@ function UserInfo({ user, className }: userInfoProps) {
 
   return (
     <div
-      className={`${className} cursor-pointer rounded-full flex justify-center items-center space-x-10`}
+      className={`${className} cursor-pointer rounded-full flex justify-center items-center space-x-10 z-10`}
     >
       <Link to="/myProfile">{user.username.toUpperCase()}</Link>
 

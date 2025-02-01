@@ -2,9 +2,27 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import Form from "./Form";
 
-function ChangePassword({ actionData }) {
-  const [errors, setErrors] = useState(actionData?.errors || {});
-  const [formError, setFormError] = useState(actionData?.error || "");
+interface ActionData {
+  errors?: {
+    currentPassword?: string;
+    newPassword?: string;
+    passwordConfirm?: string;
+  };
+  error?: string;
+  fields?: {
+    currentPassword?: string;
+    newPassword?: string;
+    confirmNewPassword?: string;
+  };
+}
+
+interface ChangePasswordProps {
+  actionData?: ActionData;
+}
+
+function ChangePassword({ actionData }: ChangePasswordProps) {
+  const [errors] = useState(actionData?.errors || {});
+  const [formError] = useState(actionData?.error || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 

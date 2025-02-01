@@ -48,7 +48,7 @@ function QuestionTimeRemaining({ fetcher }) {
         <h2 className="text-2xl font-semibold text-gray-400 tracking-widest uppercase">
           Next Question Drops In
         </h2>
-        <p className="text-8xl font-extrabold text-white tracking-wider">
+        <p className="flex max-lg:flex-col text-8xl font-extrabold text-white tracking-wider max-md:w-20 items-center justify-center">
           {timeRemaining}
         </p>
         <div className="h-2 w-64 bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 rounded-full animate-pulse"></div>

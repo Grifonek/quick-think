@@ -19,16 +19,12 @@ model User {
   points              Int      @default(0)
   coins               Int      @default(0)
   streak              Int      @default(0)
-  lastAnsweredDate    DateTime
+  lastAnsweredDate    DateTime?
   answers             Answer[]
   profileImg          String  @default("")
   unlockedRewards     Int     @default(0)
   messages            Message[]
 }
-// passwordConfirm     String
-// passwordChangedAt   DateTime
-// passwordResetToken  String
-// passwordResetExpires DateTime
 
 model Question {
   id String @id @default(auto()) @map("_id") @db.ObjectId
@@ -41,8 +37,6 @@ model Question {
   firstAnswerId String @default("")
   messages Message[]
 }
-
-// firstAnswerId String? @db.ObjectId
 
 model Answer {
   id String @id @default(auto()) @map("_id") @db.ObjectId

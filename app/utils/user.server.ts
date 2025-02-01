@@ -11,8 +11,6 @@ export const createUser = async (user: RegisterFormTypes) => {
         email: user.email,
         password: hashedPassword,
         username: user.username,
-        // passwordConfirm: user.passwordConfirm,
-        // missing profileImg
       },
     });
 

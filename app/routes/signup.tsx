@@ -20,10 +20,10 @@ export const action: ActionFunction = async ({ request }) => {
 
   // validating form data
   const errors = {
-    email: validateEmail(email),
-    password: validatePassword(password),
-    passwordConfirm: validatePasswordsEquality(password, passwordConfirm),
-    username: validateName(username),
+    email: validateEmail(email!),
+    password: validatePassword(password!),
+    passwordConfirm: validatePasswordsEquality(password!, passwordConfirm!),
+    username: validateName(username!),
   };
 
   // if error in errors, error

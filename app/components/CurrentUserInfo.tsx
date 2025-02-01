@@ -1,12 +1,13 @@
 import { AcademicCapIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import SelectProfilePic from "./SelectProfilePic";
+import { LoaderData } from "~/routes/myProfile";
 
-function CurrentUserInfo({ data }: { data: any }) {
+function CurrentUserInfo({ data }: { data: LoaderData }) {
   const [selectedPicture, setSelectedPicture] = useState(data.profileImg);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const formattedDate = new Date(data.user.createdAt).toLocaleDateString(
+  const formattedDate = new Date(data.user!.createdAt).toLocaleDateString(
     "de-DE"
   );
 
@@ -23,8 +24,6 @@ function CurrentUserInfo({ data }: { data: any }) {
         console.error("Failed to upload profile image!");
         return;
       }
-
-      console.log("successfully updated profile image!");
     } catch (err) {
       console.error(err);
     }
@@ -34,15 +33,15 @@ function CurrentUserInfo({ data }: { data: any }) {
     <div className="flex flex-col items-center justify-center space-y-10 mt-12 md:space-x-10 md:flex-row-reverse">
       <div className="relative flex-shrink-0">
         {/* Neon Ring */}
-        {data.user.unlockedRewards >= 3 && (
+        {data.user!.unlockedRewards >= 3 && (
           <div className="absolute inset-0 rounded-full border-4 border-transparent before:absolute before:inset-0 before:rounded-full before:border-[6px] before:border-transparent before:bg-gradient-to-r before:from-blue-500 before:to-purple-500 before:animate-neon-glow before:blur-md" />
         )}
 
         <img
           src={selectedPicture}
-          alt={data.user.username[0]}
+          alt={data.user!.username[0]}
           className={`relative h-52 w-52 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-4xl ${
-            data.user.unlockedRewards >= 3 ? "z-10" : ""
+            data.user!.unlockedRewards >= 3 ? "z-10" : ""
           }`}
         />
 
@@ -57,19 +56,19 @@ function CurrentUserInfo({ data }: { data: any }) {
       <div className="space-y-6 text-center md:text-left">
         <h1
           className={`font-extrabold text-4xl ${
-            data.user.unlockedRewards >= 2
+            data.user!.unlockedRewards >= 2
               ? "bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.indigo.400),theme(colors.indigo.100),theme(colors.sky.400),theme(colors.fuchsia.400),theme(colors.sky.400),theme(colors.indigo.100),theme(colors.indigo.400))] bg-[length:200%_auto] animate-gradient"
               : "text-white"
           }`}
         >
-          {data.user.username}
+          {data.user!.username}
         </h1>
         <h3 className="font-medium text-lg text-indigo-300">
-          {data.user.email}
+          {data.user!.email}
         </h3>
-        <p className="text-lg text-gray-300">{data.user.points} points</p>
+        <p className="text-lg text-gray-300">{data.user!.points} points</p>
         <p className="flex items-center justify-center md:justify-start gap-x-2 text-lg text-gray-300">
-          {data.user.coins}
+          {data.user!.coins}
           <AcademicCapIcon
             className="size-5 text-indigo-500"
             title="Coins earned"
@@ -82,11 +81,11 @@ function CurrentUserInfo({ data }: { data: any }) {
       </div>
 
       <SelectProfilePic
-        selectedPicture={selectedPicture}
+        selectedPicture={selectedPicture!}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSelect={handleSelect}
-        unlocked={data.user.unlockedRewards}
+        unlocked={data.user!.unlockedRewards}
       />
     </div>
   );
