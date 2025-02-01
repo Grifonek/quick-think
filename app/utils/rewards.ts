@@ -3,8 +3,8 @@ const rewards = [
     points: 100,
     reward: "Exclusive Avatars",
     item: [
-      "app/images/profilePics/first.jpeg",
-      "app/images/profilePics/second.jpeg",
+      "public/images/profilePics/first.jpeg",
+      "public/images/profilePics/second.jpeg",
     ],
   },
   {
@@ -22,8 +22,8 @@ const rewards = [
     points: 400,
     reward: "Exclusive Avatars",
     item: [
-      "app/images/profilePics/third.jpeg",
-      "app/images/profilePics/fourth.jpeg",
+      "public/images/profilePics/third.jpeg",
+      "public/images/profilePics/fourth.jpeg",
     ],
   },
   { points: 500, reward: "Profile Themes" },
@@ -31,8 +31,8 @@ const rewards = [
     points: 600,
     reward: "Exclusive Avatars",
     item: [
-      "app/images/profilePics/fifth.jpeg",
-      "app/images/profilePics/sixth.jpeg",
+      "public/images/profilePics/fifth.jpeg",
+      "public/images/profilePics/sixth.jpeg",
     ],
   },
   { points: 700, reward: "Chat Golden Crown Badge 👑" },
@@ -46,14 +46,14 @@ const rewards = [
     points: 900,
     reward: "Exclusive Avatars",
     item: [
-      "app/images/profilePics/seventh.jpeg",
-      "app/images/profilePics/eighth.jpeg",
+      "public/images/profilePics/seventh.jpeg",
+      "public/images/profilePics/eighth.jpeg",
     ],
   },
   {
     points: 1000,
     reward: "Quick Think Master Avatar",
-    item: ["app/images/profilePics/ninth.jpeg"],
+    item: ["public/images/profilePics/ninth.jpeg"],
   },
 ];
 

@@ -5,3 +5,4 @@ node_modules
 .env
 *.env
 app/utils/uploadingQuestions.js
+.vercel

@@ -5,10 +5,10 @@ import {
 } from "@heroicons/react/24/outline";
 import { type LoaderFunction, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
+import lightbulb from "public/images/lightbulb.png";
+import logo from "public/images/quick-think-logo-removebg.png";
 import Footer from "~/components/Footer";
 import { getUser } from "~/utils/auth.server";
-import lightbulb from "../images/lightbulb.png";
-import logo from "../images/quick-think-logo-removebg.png";
 
 export const meta: MetaFunction = () => {
   return [
@@ -17,6 +17,37 @@ export const meta: MetaFunction = () => {
       name: "description",
       content:
         "Quick Think is the ultimate platform to challenge your mind with daily questions, climb leaderboards, and connect with like-minded thinkers!",
+    },
+    {
+      name: "keywords",
+      content:
+        "Quick Think, daily questions, trivia, earn Thinkies, leaderboards, knowledge challenge, problem-solving, fun learning, quiz, education, games",
+    },
+    { name: "robots", content: "index, follow" },
+
+    {
+      property: "og:title",
+      content: "Quick Think - Earn Thinkies with your knowledge!",
+    },
+    {
+      property: "og:description",
+      content:
+        "Quick Think is the ultimate platform to challenge your mind with daily questions, climb leaderboards, and connect with like-minded thinkers!",
+    },
+    {
+      property: "og:image",
+      content: "https://yourwebsite.com/images/quick-think-logo-removebg.png",
+    },
+    { property: "og:url", content: "https://quick-think.grifonekio.site/" },
+    { property: "og:type", content: "website" },
+    { property: "og:locale", content: "en_US" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+
+    { name: "apple-mobile-web-app-title", content: "Quick Think" },
+    { name: "apple-mobile-web-app-capable", content: "yes" },
+    {
+      name: "apple-mobile-web-app-status-bar-style",
+      content: "black-translucent",
     },
   ];
 };

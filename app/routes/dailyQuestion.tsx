@@ -12,6 +12,23 @@ import {
   hasAnswered,
 } from "~/utils/question.server";
 import { getUserStreak } from "~/utils/user.server";
+import { type MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Daily Question - Quick Think" },
+    {
+      name: "description",
+      content: "Your daily question to make you think hard and earn point",
+    },
+    { name: "keywords", content: "question, quiz, challenge, trivia" },
+    { property: "og:title", content: "Daily Question - Quick Think" },
+    {
+      property: "og:description",
+      content: "Your daily question to make you think hard and earn point",
+    },
+  ];
+};
 
 export const loader: LoaderFunction = async ({ request }) => {
   // ensuring that user is authenticated
