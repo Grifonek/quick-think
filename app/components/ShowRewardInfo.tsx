@@ -18,7 +18,7 @@ function ShowRewardInfo({
             reward.item.map((el, index) => (
               <img
                 key={index}
-                src={`/${el}`}
+                src={`./${el}`}
                 alt={el}
                 className="w-32 h-32 rounded-lg object-cover shadow-md"
               />
