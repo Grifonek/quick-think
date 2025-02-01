@@ -5,8 +5,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { type LoaderFunction, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import lightbulb from "public/Images/lightbulb.png";
-import logo from "public/Images/quick-think-logo-removebg.png";
+import lightbulb from "public/lightbulb.png";
+import logo from "public/quick-think-logo-removebg.png";
 import Footer from "~/components/Footer";
 import { getUser } from "~/utils/auth.server";
 
