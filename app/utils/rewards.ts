@@ -2,7 +2,7 @@ const rewards = [
   {
     points: 100,
     reward: "Exclusive Avatars",
-    item: ["images/first.jpeg", "images/second.jpeg"],
+    item: ["Images/first.jpeg", "Images/second.jpeg"],
   },
   {
     points: 200,
@@ -18,13 +18,13 @@ const rewards = [
   {
     points: 400,
     reward: "Exclusive Avatars",
-    item: ["public/images/third.jpeg", "public/images/fourth.jpeg"],
+    item: ["public/Images/third.jpeg", "public/Images/fourth.jpeg"],
   },
   { points: 500, reward: "Profile Themes" },
   {
     points: 600,
     reward: "Exclusive Avatars",
-    item: ["public/images/fifth.jpeg", "public/images/sixth.jpeg"],
+    item: ["public/Images/fifth.jpeg", "public/Images/sixth.jpeg"],
   },
   { points: 700, reward: "Chat Golden Crown Badge 👑" },
   { points: 750, reward: "Secret Reward: Special Profile Title" },
@@ -36,12 +36,12 @@ const rewards = [
   {
     points: 900,
     reward: "Exclusive Avatars",
-    item: ["public/images/seventh.jpeg", "public/images/eighth.jpeg"],
+    item: ["public/Images/seventh.jpeg", "public/Images/eighth.jpeg"],
   },
   {
     points: 1000,
     reward: "Quick Think Master Avatar",
-    item: ["public/images/ninth.jpeg"],
+    item: ["public/Images/ninth.jpeg"],
   },
 ];
 
