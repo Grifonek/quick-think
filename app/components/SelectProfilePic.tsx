@@ -51,7 +51,7 @@ function SelectProfilePic({
               }`}
             >
               <img
-                src={`./${picture}`}
+                src={`${picture}`}
                 alt={`Profile ${index + 1}`}
                 className="rounded-lg"
               />

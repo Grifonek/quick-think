@@ -1,13 +1,13 @@
 const pictures = [
-  "public/images/profilePics/first.jpeg",
-  "public/images/profilePics/second.jpeg",
-  "public/images/profilePics/third.jpeg",
-  "public/images/profilePics/fourth.jpeg",
-  "public/images/profilePics/fifth.jpeg",
-  "public/images/profilePics/sixth.jpeg",
-  "public/images/profilePics/seventh.jpeg",
-  "public/images/profilePics/eighth.jpeg",
-  "public/images/profilePics/ninth.jpeg",
+  "/images/first.jpeg",
+  "./images/second.jpeg",
+  "public/images/third.jpeg",
+  "public/images/fourth.jpeg",
+  "public/images/fifth.jpeg",
+  "public/images/sixth.jpeg",
+  "public/images/seventh.jpeg",
+  "public/images/eighth.jpeg",
+  "public/images/ninth.jpeg",
 ];
 
 export default pictures;
