@@ -18,7 +18,7 @@ const rewards = [
   {
     points: 400,
     reward: "Exclusive Avatars",
-    item: ["public/third.jpeg", "public/fourth.jpeg"],
+    item: ["/public/third.jpeg", "/public/fourth.jpeg"],
   },
   { points: 500, reward: "Profile Themes" },
   {
@@ -36,12 +36,12 @@ const rewards = [
   {
     points: 900,
     reward: "Exclusive Avatars",
-    item: ["public/seventh.jpeg", "public/eighth.jpeg"],
+    item: ["/public/seventh.jpeg", "/public/eighth.jpeg"],
   },
   {
     points: 1000,
     reward: "Quick Think Master Avatar",
-    item: ["public/ninth.jpeg"],
+    item: ["/public/ninth.jpeg"],
   },
 ];
 

@@ -1,4 +1,5 @@
 import pictures from "~/utils/pictures";
+import first from "public/first1.jpeg";
 
 function SelectProfilePic({
   selectedPicture,
@@ -57,6 +58,7 @@ function SelectProfilePic({
               />
             </button>
           ))}
+          <img src={first} alt={`Profile ${first}`} className="rounded-lg" />
         </div>
         <button
           onClick={onClose}
