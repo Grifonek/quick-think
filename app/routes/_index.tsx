@@ -6,8 +6,8 @@ import {
 import { type LoaderFunction, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 
-import lightbulb from "/images/lightbulb.png";
-import logo from "/images/quick-think-logo-removebg.png";
+import lightbulb from "public/images/lightbulb.png";
+import logo from "public/images/quick-think-logo-removebg.png";
 
 import Footer from "~/components/Footer";
 import IndexButtons from "~/components/IndexButtons";
