@@ -1,8 +1,10 @@
+import pictures from "./pictures";
+
 const rewards = [
   {
     points: 100,
     reward: "Exclusive Avatars",
-    item: ["/first.png", "/second.jpeg"],
+    item: [pictures[0], pictures[1]],
   },
   {
     points: 200,
@@ -18,13 +20,13 @@ const rewards = [
   {
     points: 400,
     reward: "Exclusive Avatars",
-    item: ["/public/third.jpeg", "/public/fourth.jpeg"],
+    item: [pictures[2], pictures[3]],
   },
   { points: 500, reward: "Profile Themes" },
   {
     points: 600,
     reward: "Exclusive Avatars",
-    item: ["public/fifth.jpeg", "public/sixth.jpeg"],
+    item: [pictures[4], pictures[5]],
   },
   { points: 700, reward: "Chat Golden Crown Badge 👑" },
   { points: 750, reward: "Secret Reward: Special Profile Title" },
@@ -36,12 +38,12 @@ const rewards = [
   {
     points: 900,
     reward: "Exclusive Avatars",
-    item: ["/public/seventh.jpeg", "/public/eighth.jpeg"],
+    item: [pictures[6], pictures[7]],
   },
   {
     points: 1000,
     reward: "Quick Think Master Avatar",
-    item: ["/public/ninth.jpeg"],
+    item: [pictures[8]],
   },
 ];
 

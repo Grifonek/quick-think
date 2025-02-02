@@ -4,14 +4,13 @@ import {
   PresentationChartLineIcon,
 } from "@heroicons/react/24/outline";
 import { type LoaderFunction, type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import lightbulb from "public/static/lightbulb.png";
-import logo from "public/static/quick-think-logo-removebg.png";
+import { useLoaderData } from "@remix-run/react";
 
-import first from "public/static/first1.png";
-import second from "src/static/first1.png";
+import lightbulb from "/images/lightbulb.png";
+import logo from "/images/quick-think-logo-removebg.png";
 
 import Footer from "~/components/Footer";
+import IndexButtons from "~/components/IndexButtons";
 import { getUser } from "~/utils/auth.server";
 
 export const meta: MetaFunction = () => {
@@ -69,8 +68,6 @@ export default function Index() {
   return (
     <div className="flex flex-col min-h-screen items-center bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-white">
       <img src={logo} alt="logo" className="w-32 mt-10 animate-bounce" />
-      <img src={first} alt="first" className="w-32 mt-10 animate-bounce" />
-      <img src={second} alt="first" className="w-32 mt-10 animate-bounce" />
 
       <header className="text-center mb-12 mt-8">
         <h1 className="text-5xl font-extrabold text-indigo-400">
@@ -83,20 +80,7 @@ export default function Index() {
         </p>
       </header>
 
-      <div className="flex gap-6 mt-6">
-        <button className="bg-indigo-500 hover:bg-indigo-600 text-white px-8 py-4 rounded-full shadow-lg text-lg transition">
-          {user ? (
-            <Link to="/home">Go home</Link>
-          ) : (
-            <Link to="/login">Log In</Link>
-          )}
-        </button>
-        {!user && (
-          <button className="bg-white border border-indigo-500 hover:bg-indigo-50 text-indigo-500 px-8 py-4 rounded-full shadow-lg text-lg transition">
-            <Link to="/signup">Sign Up</Link>
-          </button>
-        )}
-      </div>
+      <IndexButtons user={user} />
 
       <section className="mt-24 px-6 max-w-7xl flex flex-col lg:flex-row items-center lg:items-start gap-12">
         <div className="lg:w-1/2">

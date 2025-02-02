@@ -14,7 +14,7 @@ function SearchedUserInfo({ data }) {
             <div className="absolute inset-0 rounded-full before:content-[''] before:absolute before:inset-0 before:rounded-full before:border-[6px] before:border-transparent before:bg-gradient-to-r before:from-blue-500 before:to-purple-500 before:animate-neon-glow before:blur-md" />
           )}
           <img
-            src={`${data.user.profileImg}`}
+            src={data.user.profileImg}
             alt={data.user.username[0]}
             className={`h-52 w-52 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold text-4xl relative ${
               data.user.unlockedRewards >= 3 ? "z-10" : ""

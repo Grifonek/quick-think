@@ -58,7 +58,6 @@ function SelectProfilePic({
               />
             </button>
           ))}
-          <img src={first} alt={`Profile ${first}`} className="rounded-lg" />
         </div>
         <button
           onClick={onClose}

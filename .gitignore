@@ -2,6 +2,7 @@ node_modules
 
 /.cache
 /build
+*/build
 .env
 *.env
 app/utils/uploadingQuestions.js

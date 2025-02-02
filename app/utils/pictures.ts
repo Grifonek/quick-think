@@ -1,13 +1,13 @@
 const pictures = [
-  "public/static/first1.png",
-  "/second.jpeg",
-  "/public/static/third.jpeg",
-  "/static/fourth.jpeg",
-  "/static/fifth.jpeg",
-  "/static/sixth.jpeg",
-  "/static/seventh.jpeg",
-  "/static/eighth.jpeg",
-  "/public/ninth.jpeg",
+  "/images/first1.png",
+  "/images/second.jpeg",
+  "/images/third.jpeg",
+  "/images/fourth.jpeg",
+  "/images/fifth.jpeg",
+  "/images/sixth.jpeg",
+  "/images/seventh.jpeg",
+  "/images/eighth.jpeg",
+  "/images/ninth.jpeg",
 ];
 
 export default pictures;
