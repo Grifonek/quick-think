@@ -5,8 +5,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { type LoaderFunction, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import lightbulb from "public/lightbulb.png";
-import logo from "public/quick-think-logo-removebg.png";
+import lightbulb from "public/static/lightbulb.png";
+import logo from "public/static/quick-think-logo-removebg.png";
+
+import first from "public/static/first1.png";
+import second from "src/static/first1.png";
+
 import Footer from "~/components/Footer";
 import { getUser } from "~/utils/auth.server";
 
@@ -65,6 +69,8 @@ export default function Index() {
   return (
     <div className="flex flex-col min-h-screen items-center bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 text-white">
       <img src={logo} alt="logo" className="w-32 mt-10 animate-bounce" />
+      <img src={first} alt="first" className="w-32 mt-10 animate-bounce" />
+      <img src={second} alt="first" className="w-32 mt-10 animate-bounce" />
 
       <header className="text-center mb-12 mt-8">
         <h1 className="text-5xl font-extrabold text-indigo-400">

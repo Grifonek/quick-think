@@ -1,5 +1,5 @@
 import pictures from "~/utils/pictures";
-import first from "public/first1.jpeg";
+import first from "public/static/first1.png";
 
 function SelectProfilePic({
   selectedPicture,

@@ -2,7 +2,7 @@ const rewards = [
   {
     points: 100,
     reward: "Exclusive Avatars",
-    item: ["/first.jpeg", "/second.jpeg"],
+    item: ["/first.png", "/second.jpeg"],
   },
   {
     points: 200,
